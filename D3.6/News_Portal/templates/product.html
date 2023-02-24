@@ -1,0 +1,38 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+<!-- Название у нас будет Product -->
+{% block title %}
+Posts
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+    <h1>{{post.title|censor}}</h1>
+    <hr>
+    <br>
+        <div align="left"><h1>{{ post.author.authorUser }}</h1><h6>{{post.dateCreation|date:'d M Y' }}</h6></div>
+    <br>
+        <div align="justify"><h4><p style="text-indent: 30px;" >{{post.text|censor}}</p></h4></div>
+    <br>
+        <div align="left"><h4>Рейтинг статьи: {{post.rating}}</h4></div>
+
+
+
+    {% if comments %}
+       <table>
+           <tr>
+               <td>Комментарии</td>
+           </tr>
+
+           {% for comment in comments %}
+           <tr>
+               <td>{{post.comment}}</td>
+           </tr>
+           {% endfor %}
+       </table>
+   {% else %}
+       <h2>Комментарий нет.</h2>
+       {% endif %}
+{% endblock content %}
