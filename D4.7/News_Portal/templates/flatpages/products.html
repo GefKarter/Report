@@ -1,7 +1,6 @@
 {% extends 'flatpages/default.html' %}
 
 {% load custom_filters %}
-
 {% block title %}
 Posts
 {% endblock title %}
@@ -10,66 +9,59 @@ Posts
    <h1>Все новости (всего: {{ posts|length }})</h1>
    <h3>{{ time_now|date:'d M Y' }}</h3>
 
-    {# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
-   <form action="" method="get">
-       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+    <form action="" method="get">
+        <div align="left"><h6>{{ filterset.form.as_p }}</h6></div>
+        <input type="submit" value="Найти" >
+    </form>
+    <hr>
 
+    {% if request.user.is_authenticated %}
+        <p align="right"><span style= "font-family: Impact"><a href="{% url 'post_create' %}">Создать пост</a></span></p>
+    {% endif %}
 
-       <div align="left"><h6>{{ filterset.form.as_p }}</h6></div>
+    {% if posts %}
+        <table>
+<!--            <tr>-->
+<!--                <td>Дата создания</td>-->
+<!--                <td>Заголовок</td>-->
+<!--                <td>Содержание</td>-->
 
-       {# Добавим кнопку отправки данных формы #}
-       <input type="submit" value="Найти" >
-   </form>
+<!--                {% if request.user.is_authenticated %}-->
+<!--                    <td>Действия</td>-->
+<!--                {% endif %}-->
+<!--            </tr>-->
 
-   <hr>
-   {% if posts %}
-       <table>
-           <tr>
-               <td>Дата создания</td>
-               <td>Заголовок</td>
-               <td>Содержание</td>
-           </tr>
-           <!-- Для каждого товара будете генерироваться новая строчка,
-           т.е. новый HTML код, который указан в теле цикла.
-           При этом сам цикл работает точно так же, как и в Python.
-           product — переменная цикла, т.е. наш товар полученный из списка -->
-           {% for post in posts %}
-           <tr>
-               <!-- Не забываем, что переменные в шаблоне ничем не отличаются
-                от переменных в Python. Здесь также можно получать доступ к
-                полям объекта модели. Например, здесь мы выводим имя,
-                в следующем столбце описание, и т.д.  -->
-               <td>{{ post.dateCreation|date:'d M Y' }}</td>
-               <td><p align="left">{{ post.title|censor}}</p></td>
-               <td><p align="left">{{ post.text|truncatewords:20|censor }}</p></td>
-           </tr>
-           {% endfor %}
+            {% for post in posts %}
+            <tr>
+<!--                <td>{{ post.dateCreation|date:'d M Y' }}</td>-->
+                <h5><p align="left"><strong>{{ post.title|censor}}</strong> &nbsp &nbsp <small><span style= "font-family: American Typewriter">{{ post.dateCreation|date:'d M Y' }}</span></small></p></h5>
+                <p align="left">{{ post.text|truncatewords:20|censor }}</p>
+                
+                    {% if request.user.is_authenticated %}
+                        <p align="right"><a href="{% url 'post_update' pk=post.id %}">Изменить</a>, <a href= "{% url 'post_delete' pk=post.id %}">Удалить</a> </p>
+                    {% endif %}
 
-       </table>
-   {% else %}
-       <h2>Новостей нет!</h2>
-   {% endif %}
+            </tr>
+            {% endfor %}
 
-      {# Добавляем пагинацию на страницу #}
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
 
-   {# Информация о предыдущих страницах #}
-   {% if page_obj.has_previous %}
-       <a href="?page=1">1</a>
-       {% if page_obj.previous_page_number != 1 %}
-           ...
-           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-       {% endif %}
-   {% endif %}
+    {% if page_obj.has_previous %}
+        <a href="?page=1">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+    {% endif %}
 
-   {# Информация о текущей странице #}
-   {{ page_obj.number }}
+    {{ page_obj.number }}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
+    {% endif %}
 
-   {# Информация о следующих страницах #}
-   {% if page_obj.has_next %}
-       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-       {% if paginator.num_pages != page_obj.next_page_number %}
-           ...
-           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-       {% endif %}
-   {% endif %}
 {% endblock content %}
