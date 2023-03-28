@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Здравствуйте! Новые статьи за неделю.</h2>
+<ul>
+  {% for posts in post %}
+    <li><a href = '{{link}} {{get_absolute_url}}'>{{ post.title}}</a></li>
+
+  {% enfor%}
+
+
+
+</ul>
+</body>
+</html>

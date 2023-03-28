@@ -41,13 +41,15 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'news',
+    'news.apps.NewsConfig',
     'django_filters',
     
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+    'django_apscheduler',
+
 ]
 
 SITE_ID = 1
@@ -150,5 +152,28 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
+
+SITE_URL = 'http://127.0.0:8000'
+
+# Почта
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "gefkarte"
+EMAIL_HOST_PASSWORD = "qkbgcbgymabwswcx"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "gefkarte@yandex.ru"
+
+SERVER_EMAIL = "gefkarte@yandex.ru"
+MANAGERS = (
+    ('Petr', 'sfatest@yandex.ru'),
+)
+ADMINS = (
+    ('anton', 'gefkarter@gmail.com'),
+)
+
+APSCHEDULER_DATETIME_FORMAT = 'N j, y, f:s a'
+APSCHEDULER_RUN_NOW_TIMEOUT = 25

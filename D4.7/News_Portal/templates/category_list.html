@@ -9,6 +9,11 @@ Posts
    <h1>Все новости (всего: {{ posts|length }})</h1>
    <h3>{{ time_now|date:'d M Y' }}</h3>
 
+    {% if is_not sunscriber%}
+          <p class="text-centre"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a> </p>
+    {% endif %}
+
+
     <form action="" method="get">
         <div align="left"><h6>{{ filterset.form.as_p }}</h6></div>
         <input type="submit" value="Найти" >
@@ -31,19 +36,18 @@ Posts
 <!--                {% endif %}-->
 <!--            </tr>-->
 
-            {% for post in posts %}
+            {% for post in category_news_list %}
             <tr>
 <!--                <td>{{ post.dateCreation|date:'d M Y' }}</td>-->
                 <h5><p align="left"><strong>{{ post.title|censor}}</strong> &nbsp &nbsp <small><span style= "font-family: American Typewriter">{{ post.dateCreation|date:'d M Y' }}</span></small></p></h5>
                 <p align="left">{{ post.text|truncatewords:20|censor }}</p>
-
-
                 <small class="fw-bold"> категории:
                       {% for category in post.category.all %}
                                   <a href="{% url 'category_list' category.id %}"> {{category}}<a/>
                       {% endfor %}
                 </small>
-                
+
+
                     {% if request.user.is_authenticated %}
                         <p align="right"><a href="{% url 'post_update' pk=post.id %}">Изменить</a>, <a href= "{% url 'post_delete' pk=post.id %}">Удалить</a> </p>
                     {% endif %}
