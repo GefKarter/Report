@@ -1,0 +1,67 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{{ notification_detail }}
+{% endblock title %}
+
+{% block content %}
+
+<div class="col-lg-6">
+    <div class="card mb-4">
+        {% if notification_detail.photo %}
+        <a href="{% url 'Board:notification_detail' notification_detail.id %}"><img class="card-img-top" src="{{notification_detail.photo.url}}"/></a>
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title">{{notification_detail.title}}</h2>
+            <p class="card-text">{{notification_detail.text|safe}}</p>
+            <div class="card-subtitle mb-2 text-muted">{{notification_detail.notification_user}}</div>
+            <div class="small text-muted">{{notification_detail.date_creation|date:'d M Y'}}</div>
+            {% if request.user == notification_detail.notification_user %}
+            <a class="btn btn-primary" href="{% url 'Board:notification_update' notification_detail.id %}">{% trans "Edit" %} →</a>
+            <a class="btn btn-danger" href="{% url 'Board:notification_delete' notification_detail.id %}">{% trans "Delete" %} →</a>
+            {% else %}
+            <a class="btn btn-primary" href="{% url 'Board:responses_create' notification_detail.id %}">{% trans "Respond" %} →</a>
+            {% endif %}
+
+            {% if request.user == notification_detail.notification_user %}
+                {% if my_responses %}
+                    {% for my_response in my_responses %}
+                        {% if my_response.status == 0 %}
+                         <div class="card-body">
+                            <p class="card-text">{{my_response.text}}</p>
+                            <div class="card-subtitle mb-2 text-muted">{{my_response.responses_user}}</div>
+                             <div class="small text-muted">{{my_response.date_creation|date:'d M Y'}}</div>
+                            <a class="btn btn-success" href="{% url 'Board:response_accept' notification_id=notification_detail.id response_id=my_response.id %}">{% trans "Accept" %}</a>
+                            <a class="btn btn-danger" href="{% url 'Board:response_reject' notification_id=notification_detail.id response_id=my_response.id %}">{% trans "Reject" %}</a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-6">
+                        <p class="card-text">{% trans "No responses" %}</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                {% if responses %}
+                    {% for response in responses %}
+                     <div class="card-body">
+                        <p class="card-text">{{response.text}}</p>
+                        <div class="card-subtitle mb-2 text-muted">{{response.responses_user}}</div>
+                         <div class="small text-muted">{{response.date_creation|date:'d M Y'}}</div>
+                        <a class="btn btn-primary" href="{% url 'Board:responses_update' notification_id=notification_detail.id response_id=response.id %}">{% trans "Edit" %}</a>
+                        <a class="btn btn-danger" href="{% url 'Board:responses_delete' notification_id=notification_detail.id response_id=response.id %}">{% trans "Delete" %}</a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-6">
+                        <p class="card-text">{% trans "No responses" %}</p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

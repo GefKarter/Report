@@ -1,0 +1,225 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-08 13:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: Board/apps.py:9
+msgid "Board"
+msgstr "Доска"
+
+#: Board/models.py:10 Board/models.py:16
+msgid "Category"
+msgstr "Категория"
+
+#: Board/models.py:17
+msgid "Categories"
+msgstr "Категории"
+
+#: Board/models.py:22
+msgid "The user who wants to become the author of the notification"
+msgstr "Пользователь, который хочет стать автором объявления"
+
+#: Board/models.py:23
+msgid "Notification category"
+msgstr "Категория объявления"
+
+#: Board/models.py:24
+msgid "Date creation"
+msgstr "Дата создания"
+
+#: Board/models.py:25 templates/Board/notification_create.html:21
+msgid "Title"
+msgstr "Заголовок"
+
+#: Board/models.py:26 templates/Board/notification_create.html:26
+msgid "Text"
+msgstr "Текст"
+
+#: Board/models.py:27
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: Board/models.py:28
+msgid "Photo"
+msgstr "Фото"
+
+#: Board/models.py:53 Board/models.py:59
+msgid "Notification"
+msgstr "Объявление"
+
+#: Board/models.py:54
+msgid "Notifications"
+msgstr "Объявления"
+
+#: Board/models.py:60
+msgid "User"
+msgstr "Пользователь"
+
+#: Board/models.py:61
+msgid "Response text"
+msgstr "Текст отклика"
+
+#: Board/models.py:62
+msgid "Date the response was created"
+msgstr "Дата создания отклика"
+
+#: Board/models.py:64
+msgid "Status response"
+msgstr "Статус отклика"
+
+#: Board/models.py:70
+msgid "Response"
+msgstr "Отклик"
+
+#: Board/models.py:71
+msgid "Responses"
+msgstr "Отклики"
+
+#: templates/Board/notification_create.html:16
+msgid "Select photo"
+msgstr "Выбрать фото"
+
+#: templates/Board/notification_create.html:31
+msgid "Select a category, one or more"
+msgstr "Выберите категорию, одну или несколько"
+
+#: templates/Board/notification_delete.html:18
+#: templates/Board/responses_delete.html:18
+msgid "Do you really want to delete"
+msgstr "Вы действительно хотите удалить"
+
+#: templates/Board/notification_detail.html:22
+#: templates/Board/notification_detail.html:53
+msgid "Edit"
+msgstr "Редактировать"
+
+#: templates/Board/notification_detail.html:23
+#: templates/Board/notification_detail.html:54
+#: templates/Board/responses_delete.html:15
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/Board/notification_detail.html:25
+msgid "Respond"
+msgstr "Откликнуться"
+
+#: templates/Board/notification_detail.html:36
+msgid "Accept"
+msgstr "Принять"
+
+#: templates/Board/notification_detail.html:37
+msgid "Reject"
+msgstr "Отклонить"
+
+#: templates/Board/notification_detail.html:43
+#: templates/Board/notification_detail.html:59
+msgid "No responses"
+msgstr "Нет откликов"
+
+#: templates/Board/notification_list.html:14
+#: templates/Board/notification_list.html:20
+#: templates/Board/notification_search.html:23
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/Board/notification_list.html:52
+#: templates/Board/notification_search.html:56
+msgid "Read more"
+msgstr "Подробнее"
+
+#: templates/Board/notification_list.html:63
+#: templates/Board/notification_list.html:66
+#: templates/Board/notification_search.html:67
+#: templates/Board/notification_search.html:70
+msgid "Newer"
+msgstr "Назад"
+
+#: templates/Board/notification_list.html:80
+#: templates/Board/notification_list.html:83
+#: templates/Board/notification_search.html:84
+#: templates/Board/notification_search.html:87
+msgid "Older"
+msgstr "Вперёд"
+
+#: templates/flatpages/default.html:22
+msgid "Home"
+msgstr "Главная"
+
+#: templates/flatpages/default.html:27
+msgid "New notification"
+msgstr "Новое объявление"
+
+#: templates/flatpages/default.html:29
+msgid "Exit"
+msgstr "Выход"
+
+#: templates/flatpages/default.html:31
+msgid "Enter"
+msgstr "Вход"
+
+#: templates/flatpages/default.html:32
+msgid "Register"
+msgstr "Регистрация"
+
+#: templates/flatpages/default.html:44
+msgid "Welcome to 'You`r MMORPG site name'"
+msgstr "Добро пожаловать 'ваше название MMORPG сайта'"
+
+#: templates/flatpages/default.html:45
+msgid "This is where your adventure begins"
+msgstr "Здесь начинаются ваши приключения"
+
+#: templates/flatpages/default.html:67
+msgid "Copyright &copy; Your Website 2023"
+msgstr "Авторское право &copy; Ваш веб сайт 2023"
+
+#: templates/response_accepted_email.html:12
+msgid "Your response to the ad"
+msgstr "Ваш отклик для объявления"
+
+#: templates/response_accepted_email.html:12
+msgid "was accepted by the author of the ad"
+msgstr "был принят автором объявления"
+
+#: templates/response_accepted_email.html:13
+msgid "Thank you for your participation! Sincerely"
+msgstr "Спасибо вам за участие! С уважением,"
+
+#: templates/response_notification.html:12
+msgid "A new response has been left on your"
+msgstr "Новый отклик был оставлен на ваше"
+
+#: templates/response_notification.html:12
+msgid "ad"
+msgstr "обьявление"
+
+#: templates/response_rejectted_email.html:12
+msgid "Your response was not accepted by the author of the ad."
+msgstr "Ваш отклик не был принят автором объявления"
+
+#: templates/response_rejectted_email.html:12
+msgid "Try again to respond to another ad."
+msgstr "Попробуйте откликнуться на другие объявления"
+
+#: templates/response_rejectted_email.html:13
+#, fuzzy
+#| msgid "Thank you for your participation! Sincerely"
+msgid "Thank you for your participation! With respect"
+msgstr "Спасибо вам за участие! С уважением,"

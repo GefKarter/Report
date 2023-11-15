@@ -1,0 +1,105 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+{% load i18n %}
+
+
+{% block title_page %}
+Notification
+{% endblock title_page %}
+
+{% block search %}
+<div class="card mb-4">
+    <div class="card-header">{% trans "Search" %}</div>
+    <div class="card-body">
+        <div class="input-group">
+            <form action="{% url 'Board:notification_search' %}" method="get">
+                {{ filterset.form.non_field_errors }}
+                {{ filterset.form.q.errors }}
+                <label for="{{ filterset.form.q.id_for_label }}">{% trans "Search" %}</label>
+                <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter search term..."
+                        aria-label="Enter search term..."
+                        aria-describedby="button-search"
+                        id ="{{ filterset.form.q.id }}"
+                        name="{{ filterset.form.q.name }}"
+                        {% if filterset.form.q.value%}
+                        value="{{ filterset.form.q.value }}"
+                        {% endif %}
+                />
+                <input class="btn btn-primary" value="Submit" type="submit" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock search %}
+
+{% block content %}
+{% if notification_list %}
+<div class="col-lg-6">
+    <div class="card mb-4">
+        {% for Notification in notification_list %}
+        {% if Notification.photo %}
+        <a href="{% url 'Board:notification_detail' Notification.id %}"><img class="card-img-top" src="{{Notification.photo.url}}"/></a>
+        {% endif %}
+        <div class="card-body">
+            <div class="small text-muted">{{Notification.date_creation|date:'d M Y'}}</div>
+            <h2 class="card-title">{{Notification.title}}</h2>
+            <p class="card-text">{{Notification.preview|safe}}</p>
+            <a class="btn btn-primary" href="{% url 'Board:notification_detail' Notification.id %}">{% trans "Read more" %} →</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Pagination-->
+<nav aria-label="Pagination">
+    <hr class="my-0" />
+    <ul class="pagination justify-content-center my-4">
+        {% if page_obj.number == 1 %}
+        <li class="page-item disabled"><a class="page-link">{% trans "Newer" %}</a></li>
+        {% endif %}
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.previous_page_number %}">{% trans "Newer" %}</a></li>
+        <li class="page-item" aria-current="page"><a class="page-link" href="?{% url_replace page=1 %}">1</a></li>
+        {% if page_obj.previous_page_number != 1 %}
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+        <li class="page-item" aria-current="page"><a class="page-link" href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a></li>
+        {% endif %}
+        {% endif %}
+        <li class="page-item active"><a class="page-link" tabindex="-1" aria-disabled="false">{{ page_obj.number }}</a></li>
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a></li>
+        {% if paginator.num_pages != page_obj.next_page_number %}
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+        <li class="page-item" aria-current="page"><a class="page-link" href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="?{% url_replace page=page_obj.next_page_number %}">{% trans "Older" %}</a></li>
+        {% endif %}
+        {% if page_obj.number == page_obj.paginator.num_pages %}
+        <li class="page-item disabled"><a class="page-link">{% trans "Older" %}</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<form action="{% url 'set_language' %}" method="POST"> {% csrf_token %} <!-- Не забываем по csrf_token для POST запросов -->
+    <input type="hidden" name="next" value="{{ redirect_to }}">
+        {% get_current_language as LANGUAGE_CODE %}
+        <select name="language" id="">
+            {% get_available_languages as LANGUAGES %} <!-- получаем языки -->
+            {% get_language_info_list for LANGUAGES as languages %} <!-- Помещаем их в список languages -->
+            {% for language in languages %} <!-- Итерируясь по списку, выводим их название на языке пользователя и код -->
+                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                    {{ language.name_local }} - {{ language.code }}
+                </option>
+            {% endfor %}
+        </select>
+    <input type="submit" value="set">
+</form>
+{% endif %}
+{% endblock content %}
+
+

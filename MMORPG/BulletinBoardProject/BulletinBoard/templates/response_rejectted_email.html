@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+{% load i18n %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+    <h2>{% trans "Your response was not accepted by the author of the ad." %} "{{ title }}" {% trans "Try again to respond to another ad." %}</h2>
+    <p>{% trans "Thank you for your participation! With respect" %},{{ settings.SITE_NAME }}</p>
+</body>
+</html>

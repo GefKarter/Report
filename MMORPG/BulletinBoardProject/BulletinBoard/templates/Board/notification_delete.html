@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{{ notification_delete }}
+{% endblock title %}
+
+{% block content %}
+<div class="col-lg-6">
+    <div class="card text-center">
+        <form class="form-horizontal form_middle" enctype='multipart/form-data' method="post">
+            {% csrf_token %}
+            <div class="card-header">
+                Delete
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{% trans "Do you really want to delete" %} "{{ object.title }}"?</h5>
+                <input class="btn btn-primary" type="submit" value="Delete" />
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
